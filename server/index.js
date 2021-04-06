@@ -23,6 +23,9 @@ app.post('/login', ctrl.login)
 app.get('/user', ctrl.getUser)
 app.post('/logout', ctrl.logout)
 app.put('/user', ctrl.updateUser)
+app.get('/tutorials', ctrl.getTutorials)
+app.get('/tutorials/:id', ctrl.getTutorial)
+app.post('/tutorials', ctrl.addTutorial)
 
 massive({
     connectionString: CONNECTION_STRING,

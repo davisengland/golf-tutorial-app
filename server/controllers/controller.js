@@ -4,7 +4,7 @@ module.exports = {
     signup: async (req, res) => {
         const { email, password, first_name, last_name } = req.body
         const db = req.app.get('db')
-        const result = await db.get_user_by_email(email)
+        const result = await db.users.get_user_by_email(email)
         const existingUser = result[0]
 
         if(existingUser) {
@@ -14,18 +14,17 @@ module.exports = {
         const salt = bcrypt.genSaltSync(10)
         const hash = bcrypt.hashSync(password, salt)
 
-        const userSignup = await db.signup_user(email, hash, first_name, last_name)
+        const userSignup = await db.users.signup_user(email, hash, first_name, last_name)
         const newUser = userSignup[0]
 
         req.session.user = newUser
-        
         res.status(200).send(req.session.user)
     },
 
     login: async (req, res) => {
         const { email, password } = req.body
         const db = req.app.get('db')
-        const result = await db.get_user_by_email(email)
+        const result = await db.users.get_user_by_email(email)
         const existingUser = result[0]
 
         if(!existingUser) {
@@ -39,7 +38,6 @@ module.exports = {
         }
 
         req.session.user = existingUser
-
         res.status(200).send(req.session.user)
     },
 
@@ -58,21 +56,43 @@ module.exports = {
 
     updateUser: async (req, res) => {
         const { newEmail, newPassword, newFirst_name, newLast_name } = req.body
-        let password = ''
+        let hash = ''
         const db = req.app.get('db')
 
         const isAuth = bcrypt.compareSync(newPassword, req.session.user.hash)
         if(!isAuth) {
-            password = newPassword
+            const salt = bcrypt.genSaltSync(10)
+            hash = bcrypt.hashSync(newPassword, salt)
         } else {
-            password = req.session.user.hash
+            hash = req.session.user.hash
         }
 
-        const result = db.update_user(newEmail, password, newFirst_name, newLast_name, req.session.user.user_id)
+        const result = db.users.update_user(newEmail, hash, newFirst_name, newLast_name, req.session.user.user_id)
         const newUser = result[0]
 
         req.session.user = newUser
-
         res.status(200).send(req.session.user)
+    },
+
+    getTutorials: async (req, res) => {
+        const db = req.app.get('db')
+        const tutorials = await db.tutorials.get_tutorials()
+        res.status(200).send(tutorials)
+    },
+
+    getTutorial: async (req, res) => {
+        const { id } = req.params
+        const db = req.app.get('db')
+        const result = await db.tutorials.get_tutorial_by_id(id)
+        const tutorial = result[0]
+        res.status(200).send(tutorial)
+    },
+
+    addTutorial: async (req, res) => {
+        const { embedId, description } = req.body
+        const db = req.app.get('db')
+        const result = await db.tutorials.add_tutorial(embedId, description)
+        const tutorial = result[0]
+        res.status(200).send(tutorial)
     }
 }

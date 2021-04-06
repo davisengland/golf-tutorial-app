@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS users, tutorials, history;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users(
   user_id SERIAL PRIMARY KEY,
@@ -10,8 +10,8 @@ CREATE TABLE users(
 
 CREATE TABLE tutorials(
     tutorial_id SERIAL PRIMARY KEY,
-    iframe_tag TEXT,
-    description VARCHAR(1000)
+    embed_id VARCHAR(255),
+    description VARCHAR(255)
 );
 
 CREATE TABLE history(
