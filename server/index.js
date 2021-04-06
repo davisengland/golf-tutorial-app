@@ -3,6 +3,8 @@ const express = require('express')
 const app = express()
 const massive = require('massive')
 const session = require('express-session')
+const ctrl = require('./controllers/controller')
+// const usersCtrl = require('./controllers/usersCtrl')
 
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env
 
@@ -16,10 +18,11 @@ app.use(session({
     }
 }))
 
-// Auth Endpoints
-
-
-// Users Endpoints
+app.post('/signup', ctrl.signup)
+app.post('/login', ctrl.login)
+app.get('/user', ctrl.getUser)
+app.post('/logout', ctrl.logout)
+app.put('/user', ctrl.updateUser)
 
 massive({
     connectionString: CONNECTION_STRING,
