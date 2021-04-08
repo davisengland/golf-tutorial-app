@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { login } from '../redux/reducers/userReducer'
-import { connect, useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 
 function Login(props) {
     const [email, setEmail] = useState('')
@@ -17,9 +17,9 @@ function Login(props) {
                 history.push('/gallery')
             })
             .catch(err => {
-                if(err.response.status === 401) {
+                if(err.response?.status === 401) {
                     alert('Email not found. Please sign-up as a new user before logging in.')
-                } else if(err.response.status === 403) {
+                } else if(err.response?.status === 403) {
                     alert('Incorrect password. Please try again.')
                 } else {
                     console.log(err)

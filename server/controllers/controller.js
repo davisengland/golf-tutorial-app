@@ -25,15 +25,17 @@ module.exports = {
         const { email, password } = req.body
         const db = req.app.get('db')
         const result = await db.users.get_user_by_email(email)
-        const existingUser = result[0]
+        const [existingUser] = result
 
         if(!existingUser) {
+            console.log('401')
             return res.status(401).send('Email not found. Please sign-up as a new user before logging in.')
         }
 
         const isAuth = bcrypt.compareSync(password, existingUser.hash)
 
         if(!isAuth) {
+            console.log('403')
             return res.status(403).send('Incorrect password. Please try again.')
         }
 
@@ -47,11 +49,11 @@ module.exports = {
     },
 
     getUser: (req, res) => {
-        if(!req.session.user) {
-            res.sendStatus(404)
+        if(req.session.user) {
+            res.status(200).send(req.session.user)
+        } else {
+            res.sendStatus(401)
         }
-
-        res.status(200).send(req.session.user)
     },
 
     updateUser: async (req, res) => {

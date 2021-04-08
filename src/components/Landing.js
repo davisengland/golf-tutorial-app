@@ -2,10 +2,9 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { Link, useHistory } from 'react-router-dom'
 import { signup } from '../redux/reducers/userReducer'
-import { connect, useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 
 function Landing(props) {
-    // const { user } = useSelector(state => state.userReducer)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')

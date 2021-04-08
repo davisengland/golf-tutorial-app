@@ -15,6 +15,7 @@ export function signup(payload) {
 }
 
 export function login(payload) {
+    console.log(payload)
     return {
         type: LOGIN,
         payload: payload
@@ -44,7 +45,6 @@ export default function reducer(state = initialState, action) {
             }
         case LOGIN:
             return {
-                ...state,
                 user: action.payload
             }
         case GET_USER:

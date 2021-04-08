@@ -1,6 +1,6 @@
 import userReducer from './reducers/userReducer'
 import tutorialsReducer from './reducers/tutorialsReducer'
-// import {devToolsEnhancer} from 'redux-devtools-extension';
+import {devToolsEnhancer} from 'redux-devtools-extension';
 import {createStore, combineReducers} from 'redux';
 
 const rootReducer = combineReducers({
@@ -8,4 +8,4 @@ const rootReducer = combineReducers({
     tutorialsReducer
 })
 
-export default createStore(rootReducer)
+export default createStore(rootReducer, devToolsEnhancer())

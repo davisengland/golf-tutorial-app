@@ -1,28 +1,24 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import { Link } from 'react-router-dom'
-import { connect, useSelector } from 'react-redux'
+// import React, { useState, useEffect } from 'react'
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 function Header(props) {
-    // const { user } = useSelector(state => state.userReducer)
-    const [user, setUser] = useState({})
 
-    useEffect(async () => {
-        await axios.get('/user')
-            .then(res => {
-                setUser(res.data)
-                console.log(res.data)
-            })
-        },[])
-
-    return(
-        <div>
-            <h1 className='logo'>ScrathGolf</h1>
-            <Link to='/gallery'>Gallery</Link>
-            <Link to='/'>Logout</Link>
-            <h1>{user.first_name.charAt(0).toUpperCase()}{user.last_name.charAt(0).toUpperCase()}</h1>
-        </div>
-    )
+  return (
+    <div>
+      <h1 className="logo">ScrathGolf</h1>
+      <Link to="/gallery">Gallery</Link>
+      <Link to="/">Logout</Link>
+      <h1>
+        {props.user.first_name?.charAt(0).toUpperCase()}
+        {props.user.last_name?.charAt(0).toUpperCase()}
+      </h1>
+    </div>
+  );
 }
 
-export default connect()(Header)
+function mapStateToProps(state) {
+  return state.userReducer;
+}
+
+export default connect(mapStateToProps)(Header);
