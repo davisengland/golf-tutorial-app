@@ -15,7 +15,6 @@ export function signup(payload) {
 }
 
 export function login(payload) {
-    console.log(payload)
     return {
         type: LOGIN,
         payload: payload

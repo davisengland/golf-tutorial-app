@@ -4,15 +4,15 @@ import Landing from './components/Landing'
 import Login from './components/Login'
 import Gallery from './components/Gallery'
 // import View from './components/View'
-// import Profile from './components/Profile'
+import Profile from './components/Profile'
 
 export default (
     <Switch>
-        <Route exact path='/' component={Landing}/>
+        <Route path='/landing' component={Landing}/>
         {/* <Route path='/signup' component={Signup}/> */}
         <Route path='/login' component={Login}/>
-        <Route path='/gallery' component={Gallery}/>
+        <Route exact path='/' component={Gallery}/>
         {/* <Route path='/view' component={View}/> */}
-        {/* <Route path='/profile' component={Profile}/> */}
+        <Route path='/profile' component={Profile}/>
     </Switch>
 )

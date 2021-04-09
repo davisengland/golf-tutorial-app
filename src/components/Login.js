@@ -13,8 +13,8 @@ function Login(props) {
         let body = { email, password }
         axios.post('/login', body)
             .then(res => {
-                props.dispatch(login(res.data))
-                history.push('/gallery')
+                props.login(res.data)
+                history.push('/')
             })
             .catch(err => {
                 if(err.response?.status === 401) {
@@ -41,4 +41,8 @@ function Login(props) {
     )
 }
 
-export default connect()(Login)
+function mapStateToProps(state) {
+    return state
+}
+
+export default connect(mapStateToProps, {login})(Login)
