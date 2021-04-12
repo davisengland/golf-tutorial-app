@@ -1,1 +1,1 @@
-SELECT * FROM tutorials
+SELECT * FROM tutorials;

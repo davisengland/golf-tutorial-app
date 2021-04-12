@@ -20,7 +20,7 @@ function App(props) {
         })
         .catch((err) => {
           console.error("No user logged in.");
-          if (location.pathname === "/" || location.pathname === '/profile') {
+          if (location.pathname === "/" || location.pathname === "/profile") {
             history.push("/landing");
           }
         });
@@ -44,6 +44,6 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  getUser: getUser,
-  getTutorials: getTutorials,
+  getUser,
+  getTutorials,
 })(App);

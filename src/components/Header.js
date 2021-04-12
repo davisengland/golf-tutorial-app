@@ -5,16 +5,17 @@ import { logout } from "../redux/reducers/userReducer";
 import axios from "axios";
 
 function Header(props) {
-    let history = useHistory()
+  let history = useHistory();
 
-    const logoutUser = () => {
-        axios.post('/logout')
-            .then(res => {
-                props.logout()
-                history.push('/landing')
-            })
-            .catch(err => console.log(err))
-    }
+  const logoutUser = () => {
+    axios
+      .post("/logout")
+      .then((res) => {
+        props.logout();
+        history.push("/landing");
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div>
@@ -35,4 +36,4 @@ function mapStateToProps(state) {
   return state.userReducer;
 }
 
-export default connect(mapStateToProps, {logout})(Header);
+export default connect(mapStateToProps, { logout })(Header);

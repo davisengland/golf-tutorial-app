@@ -15,6 +15,6 @@ CREATE TABLE tutorials(
 );
 
 CREATE TABLE history(
-    tutorial_id INT REFERENCES tutorials(tutorial_id),
+    embed_id VARCHAR(255),
     user_id INT REFERENCES users(user_id)
 );

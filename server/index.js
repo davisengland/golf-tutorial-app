@@ -3,8 +3,9 @@ const express = require('express')
 const app = express()
 const massive = require('massive')
 const session = require('express-session')
-const ctrl = require('./controllers/controller')
-// const usersCtrl = require('./controllers/usersCtrl')
+const usersCtrl = require('./controllers/usersController')
+const tutorialsCtrl = require('./controllers/tutorialsController')
+const historyCtrl = require('./controllers/historyController')
 
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env
 
@@ -18,14 +19,16 @@ app.use(session({
     }
 }))
 
-app.post('/signup', ctrl.signup)
-app.post('/login', ctrl.login)
-app.get('/user', ctrl.getUser)
-app.post('/logout', ctrl.logout)
-app.put('/user', ctrl.updateUser)
-app.get('/tutorials', ctrl.getTutorials)
-app.get('/tutorials/:id', ctrl.getTutorial)
-app.post('/tutorials', ctrl.addTutorial)
+app.post('/signup', usersCtrl.signup)
+app.post('/login', usersCtrl.login)
+app.get('/user', usersCtrl.getUser)
+app.post('/logout', usersCtrl.logout)
+app.put('/user', usersCtrl.updateUser)
+app.get('/tutorials', tutorialsCtrl.getTutorials)
+app.get('/tutorials/:id', tutorialsCtrl.getTutorial)
+app.post('/tutorials', tutorialsCtrl.addTutorial)
+app.get('/history', historyCtrl.getHistory)
+app.post('/history', historyCtrl.addToHistory)
 
 massive({
     connectionString: CONNECTION_STRING,
