@@ -5,6 +5,7 @@ import routes from "./routes";
 import { connect } from "react-redux";
 import { getUser } from "./redux/reducers/userReducer";
 import { getTutorials } from "./redux/reducers/tutorialsReducer";
+import { getHistory } from "./redux/reducers/historyReducer";
 import { useLocation, useHistory } from "react-router-dom";
 
 function App(props) {
@@ -31,10 +32,19 @@ function App(props) {
           props.getTutorials(res.data);
         })
         .catch((err) => console.log(err));
+
+      axios
+        .get("/history")
+        .then((res) => {
+          props.getHistory(res.data);
+        })
+        .catch((err) =>
+          console.error("Cannot show history if user is not logged in")
+        );
     };
 
     fetchData();
-  }, [location.pathname]);
+  }, [location.pathname, history]);
 
   return <div className="App">{routes}</div>;
 }
@@ -46,4 +56,5 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
   getUser,
   getTutorials,
+  getHistory,
 })(App);

@@ -3,6 +3,8 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { login } from "../redux/reducers/userReducer";
 import { connect } from "react-redux";
+import logo10 from '../logos/logo10.png'
+import "./Login.css";
 
 function Login(props) {
   const [email, setEmail] = useState("");
@@ -31,23 +33,25 @@ function Login(props) {
   };
 
   return (
-    <div>
+    <div className='login-page'>
       <header>
-        <h1 className="logo">ScrathGolf</h1>
+        <img src={logo10} className='logo10'/>
       </header>
-      <section>
+      <section className='login-boxes'>
         <input
+          className='login-inputs'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
         />
         <input
+          className='login-inputs'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
       </section>
-      <button onClick={loginUser}>Login</button>
+      <button onClick={loginUser} className='button'>Login</button>
     </div>
   );
 }

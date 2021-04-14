@@ -2,9 +2,13 @@ const bcrypt = require("bcryptjs");
 
 module.exports = {
   getHistory: async (req, res) => {
-    const db = req.app.get("db");
-    const history = await db.history.get_history();
-    res.status(200).send(history);
+      if(req.session.user) {
+        const db = req.app.get("db");
+        const history = await db.history.get_history_for_user(req.session.user.user_id);
+        res.status(200).send(history);
+      } else {
+          res.sendStatus(401)
+      }
   },
 
   addToHistory: async (req, res) => {
@@ -16,8 +20,7 @@ module.exports = {
           embed_id,
           user_id
         );
-        const tutorial = result[0];
-        res.status(200).send(tutorial);
+        res.status(200).send(result);
       }
   },
 };
