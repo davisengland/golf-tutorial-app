@@ -1,0 +1,11 @@
+.gallery-body {
+    background-color: rgba(240,240,240,255);
+    padding-top: 12vh;
+}
+
+.gallery-videos {
+    width: 90vw;
+    height: 30vh;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}

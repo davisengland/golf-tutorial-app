@@ -1,13 +1,15 @@
-// import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../redux/reducers/userReducer";
 import { logoutHistory } from '../redux/reducers/historyReducer'
 import axios from "axios";
-import logo4 from '../logos/logo4.png'
+import logo11 from '../logos/logo11.png'
 import './Header.css'
 
 function Header(props) {
+  const [menu, setMenu] = useState('none')
+
   let history = useHistory();
 
   const logoutUser = () => {
@@ -21,23 +23,43 @@ function Header(props) {
       .catch((err) => console.log(err));
   };
 
+  const showMenu = () => {
+    if(menu === 'closed' || menu === 'none') {
+        setMenu('open')
+    } else {
+        setMenu('closed')
+    }
+  }
+
   return (
-    <div>
-      <img src={logo4} className='little-logo'/>
-      <Link to="/">Gallery</Link>
-      <h2 onClick={logoutUser}>Logout</h2>
-      <Link to="/profile">
-        <h1>
-          {props.user.first_name?.charAt(0).toUpperCase()}
-          {props.user.last_name?.charAt(0).toUpperCase()}
-        </h1>
-      </Link>
+    <div className='header'>
+      <section className='mobile-header'>
+        <img src={logo11} className='header-logo11' alt='logo11'/>
+        <div className='menu-button' onClick={() => showMenu()}>
+          <div className='menu-icon'>
+              <div className='bar'></div>
+              <div className='bar'></div>
+              <div className='bar'></div>
+          </div>
+        </div>
+      </section>
+      <div className={menu === 'none' ? 'none' : menu === 'open' ? 'open' : 'closed'}>
+        <Link to="/" className='gallery-link links'><h2>Gallery</h2></Link>
+        <Link to="/profile" className='profile-link links'>
+          <h2>
+            Profile
+            {/* {props.userReducer.user.first_name?.charAt(0).toUpperCase()}
+            {props.userReducer.user.last_name?.charAt(0).toUpperCase()} */}
+          </h2>
+        </Link>
+        <h2 onClick={logoutUser} className='logout-link links'>Logout</h2>
+      </div>
     </div>
   );
 }
 
 function mapStateToProps(state) {
-  return state.userReducer;
+  return state;
 }
 
 export default connect(mapStateToProps, { logout, logoutHistory })(Header);

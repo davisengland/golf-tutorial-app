@@ -4,6 +4,10 @@ import { Link, useHistory } from "react-router-dom";
 import { signup } from "../redux/reducers/userReducer";
 import { connect } from "react-redux";
 import logo11 from '../logos/logo11.png'
+import image1 from '../images/image1.png'
+import image2 from '../images/image2.png'
+import image3 from '../images/image3.png'
+import image4 from '../images/image4.png'
 import "./Landing.css";
 
 function Landing(props) {
@@ -31,7 +35,7 @@ function Landing(props) {
   return (
     <div className="landing">
       <header className='landing-header'>
-        <img src={logo11} className='logo11'/>
+        <img src={logo11} className='logo11' alt='logo11'/>
         <Link to="/login">
           <button className='login-button'>login</button>
         </Link>
@@ -72,9 +76,11 @@ function Landing(props) {
         </div>
       </section>
       <section className='bottom-section'>
-        <img className='images' src='https://www.golfwrx.com/wp-content/uploads/2019/09/YT-LAST-ATTEMPT-400x240.jpg'/>
-        <img className='images' src='https://i.ytimg.com/vi/OkB9tniWbeE/maxresdefault.jpg'/>
-        <img className='images' src='https://i.ytimg.com/vi/4UxpYlO3Dss/maxresdefault.jpg'/>
+        <h1 className='text3'>Videos for every part of your game!</h1>
+        <img className='images' src={image1} alt='image1'/>
+        <img className='images' src={image2} alt='image2'/>
+        <img className='images' src={image3} alt='image3'/>
+        <img className='images' src={image4} alt='image4'/>
       </section>
     </div>
   );

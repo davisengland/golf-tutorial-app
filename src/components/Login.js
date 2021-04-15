@@ -35,7 +35,7 @@ function Login(props) {
   return (
     <div className='login-page'>
       <header>
-        <img src={logo10} className='logo10'/>
+        <img src={logo10} className='logo10' alt='logo10'/>
       </header>
       <section className='login-boxes'>
         <input
