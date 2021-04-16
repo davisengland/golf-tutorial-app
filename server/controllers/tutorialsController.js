@@ -1,5 +1,3 @@
-const bcrypt = require("bcryptjs");
-
 module.exports = {
   getTutorials: async (req, res) => {
     const db = req.app.get("db");

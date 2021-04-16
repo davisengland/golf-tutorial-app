@@ -1,5 +1,3 @@
-const bcrypt = require("bcryptjs");
-
 module.exports = {
   getHistory: async (req, res) => {
       if(req.session.user) {

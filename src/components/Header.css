@@ -1,3 +1,8 @@
+.header {
+    position: relative;
+    z-index: 2;
+}
+
 .mobile-header {
     display: flex;
     justify-content: space-between;

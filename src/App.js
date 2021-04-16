@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { getUser } from "./redux/reducers/userReducer";
 import { getTutorials } from "./redux/reducers/tutorialsReducer";
 import { getHistory } from "./redux/reducers/historyReducer";
+import { getVideos } from './redux/reducers/videosReducer'
 import { useLocation, useHistory } from "react-router-dom";
 
 function App(props) {
@@ -41,6 +42,19 @@ function App(props) {
         .catch((err) =>
           console.error("Cannot show history if user is not logged in")
         );
+
+      axios.get('/videos')
+        .then(res => {
+          props.getVideos(res.data)
+        })
+        .catch((err) => console.error('Cannot show practice videos if user in not logged in'));
+
+        // axios.get('/s3')
+        //   .then(res => {
+        //     const { data } = res.data
+        //     console.log(data)
+        //   })
+        //   .catch( err => console.log(err))
     };
 
     fetchData();
@@ -57,4 +71,5 @@ export default connect(mapStateToProps, {
   getUser,
   getTutorials,
   getHistory,
+  getVideos
 })(App);

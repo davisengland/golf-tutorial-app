@@ -18,3 +18,8 @@ CREATE TABLE history(
     embed_id VARCHAR(255),
     user_id INT REFERENCES users(user_id)
 );
+
+CREATE TABLE videos(
+  url VARCHAR(500) UNIQUE,
+  user_id INT REFERENCES users(user_id)
+);

@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../redux/reducers/userReducer";
 import { logoutHistory } from '../redux/reducers/historyReducer'
+import { logoutVideos } from '../redux/reducers/videosReducer'
 import axios from "axios";
 import logo11 from '../logos/logo11.png'
 import './Header.css'
@@ -18,6 +19,7 @@ function Header(props) {
       .then((res) => {
         props.logout();
         props.logoutHistory();
+        props.logoutVideos();
         history.push("/landing");
       })
       .catch((err) => console.log(err));
@@ -62,4 +64,4 @@ function mapStateToProps(state) {
   return state;
 }
 
-export default connect(mapStateToProps, { logout, logoutHistory })(Header);
+export default connect(mapStateToProps, { logout, logoutHistory, logoutVideos })(Header);

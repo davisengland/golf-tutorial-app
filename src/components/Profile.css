@@ -31,3 +31,17 @@
     flex-direction: column;
     align-items: flex-start;
 }
+
+.practice-video-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.practice-videos {
+    width: 90vw;
+    margin: 20px 0px;
+    position: relative;
+    z-index: 1;
+    border-radius: 5px;
+}

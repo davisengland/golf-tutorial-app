@@ -3,9 +3,9 @@ import Header from "./Header";
 import { connect } from "react-redux";
 import YouTube from "react-youtube";
 import Dropzone from 'react-dropzone'
-import { GridLoader } from 'react-spinners'
+import { ClockLoader } from 'react-spinners'
 import { v4 as randomString } from 'uuid'
-import ReactPlayer from 'react-player'
+import { addVideo } from '../redux/reducers/videosReducer'
 import './Profile.css'
 import axios from "axios";
 
@@ -41,6 +41,7 @@ function Profile(props) {
       }
     }).then( (response) => {
       const { signedRequest, url } = response.data
+      console.log(signedRequest, 'signed request')
       uploadFile(file, signedRequest, url)
     }).catch( err => {
       console.log(err)
@@ -67,7 +68,23 @@ function Profile(props) {
           alert(`ERROR: ${err.status}\n ${err.stack}`)
         }
       })
+
+    console.log(props.videosReducer.practiceVideos, 'props')
+
+    axios.post('/videos', {url})
+      .then(res => {
+        props.addVideo(res.data)
+      })
   }
+
+  const videosMap = props.videosReducer.practiceVideos.map((elem) => {
+    return (
+      <div key={elem.url}>
+        {console.log(elem.url)}
+        <video controls className='practice-videos'><source type='video/mp4' src={elem.url}/></video>
+      </div>
+    );
+  });
 
   return (
     <div className='profile-page'>
@@ -89,31 +106,34 @@ function Profile(props) {
             <h2>{props.userReducer.user.email}</h2>
           </div>
         </div>
-        <h1>Upload Practice Video</h1>
-        <Dropzone
-          onDropAccepted={getSignedRequest}
-          accept="video/*"
-          multiple={false}>
-          {({getRootProps, getInputProps}) => (
-          <div 
-              style = {{
-              width: 160,
-              height: 80,
-              borderWidth: 5,
-              marginTop: 25,
-              borderColor: 'gray',
-              borderStyle: 'dashed',
-              borderRadius: 5,
-              display: 'inline-block',
-              fontSize: 17,}}
-              {...getRootProps()}>
-              <input {...getInputProps()} />
-              {isUploading ? <GridLoader /> : <p>Drop files here, or click to select files</p>}
-          </div>
-          )}
-        </Dropzone>
-        <ReactPlayer url='https://golf-tutorials.s3-us-west-1.amazonaws.com/6/c751fc26-b5c9-4909-b6b4-b5331c69c285-IMG_0021.MOV'/>
-        <ReactPlayer url='https://golf-tutorials.s3-us-west-1.amazonaws.com/1/569f74cd-aa06-4d53-a981-2ea657b96786-IMG_0021.mp4'/>
+        <section className='practice-video-section'>
+          <h1>Upload Practice Video</h1>
+          <Dropzone
+            onDropAccepted={getSignedRequest}
+            accept="video/*"
+            multiple={false}>
+            {({getRootProps, getInputProps}) => (
+            <div 
+                style = {{
+                width: 160,
+                height: 80,
+                borderWidth: 5,
+                marginTop: 25,
+                borderColor: 'gray',
+                borderStyle: 'dashed',
+                borderRadius: 5,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 17,}}
+                {...getRootProps()}>
+                <input {...getInputProps()} />
+                {isUploading ? <ClockLoader /> : <p>Drop files here, or click to select files</p>}
+            </div>
+            )}
+          </Dropzone>
+          {videosMap}
+        </section>
         <h1>History</h1>
         {historyMap}
       </section>
@@ -125,4 +145,4 @@ function mapStateToProps(state) {
   return state;
 }
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps, {addVideo})(Profile);

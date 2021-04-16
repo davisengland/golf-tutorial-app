@@ -7,6 +7,7 @@ const session = require('express-session')
 const usersCtrl = require('./controllers/usersController')
 const tutorialsCtrl = require('./controllers/tutorialsController')
 const historyCtrl = require('./controllers/historyController')
+const videosCtrl = require('./controllers/practiceVideosController')
 const { default: axios } = require('axios')
 
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET, S3_BUCKET, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } = process.env
@@ -31,6 +32,9 @@ app.get('/tutorials/:id', tutorialsCtrl.getTutorial)
 app.post('/tutorials', tutorialsCtrl.addTutorial)
 app.get('/history', historyCtrl.getHistory)
 app.post('/history', historyCtrl.addToHistory)
+app.get('/videos', videosCtrl.getVideos)
+app.post('/videos', videosCtrl.addVideo)
+app.delete('/videos', videosCtrl.deleteVideo)
 app.get('/sign-s3', (req, res) => {
     aws.config = {
         region: 'us-west-1',
@@ -39,6 +43,7 @@ app.get('/sign-s3', (req, res) => {
     }
 
     const s3 = new aws.S3()
+    // console.log(s3)
     const fileName = req.query['file-name']
     const fileType = req.query['file-type']
     const folderName = req.query['folder-name']
@@ -62,6 +67,32 @@ app.get('/sign-s3', (req, res) => {
         return res.send(returnData)
     })
 })
+// app.get('/sign-s3', (req, res) => {
+//     if(req.session.user) {
+//         aws.config = {
+//             region: 'us-west-1',
+//             accessKeyId: AWS_ACCESS_KEY_ID,
+//             secretAccessKey: AWS_SECRET_ACCESS_KEY
+//         }
+        
+//         const folderName = req.session.user.user_id
+//         const s3Params = {
+//             Bucket: S3_BUCKET,
+//             Key:`${folderName}`
+//         }
+    
+//         s3.getObject('getObjects', s3Params, (err, data) => {
+//             if(err) {
+//                 console.log(err)
+//                 return res.end()
+//             }
+//             const returnData = {
+//                 data: data
+//             }
+//             return res.send(returnData)
+//         })
+//     }
+// })
 
 massive({
     connectionString: CONNECTION_STRING,
