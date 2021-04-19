@@ -5,7 +5,7 @@ import YouTube from "react-youtube";
 import Dropzone from 'react-dropzone'
 import { ClockLoader } from 'react-spinners'
 import { v4 as randomString } from 'uuid'
-import { addVideo } from '../redux/reducers/videosReducer'
+import { addVideo, deleteVideo } from '../redux/reducers/videosReducer'
 import './Profile.css'
 import axios from "axios";
 
@@ -79,8 +79,8 @@ function Profile(props) {
 
   const videosMap = props.videosReducer.practiceVideos.map((elem) => {
     return (
-      <div key={elem.url}>
-        {console.log(elem.url)}
+      <div key={elem.url} className='x-video'>
+        {/* <button className='x' onClick={() => props.deleteVideo(elem.url)}>X</button> */}
         <video controls className='practice-videos'><source type='video/mp4' src={elem.url}/></video>
       </div>
     );
@@ -90,20 +90,22 @@ function Profile(props) {
     <div className='profile-page'>
       <Header />
       <section className='profile-body'>
-        <h1>
-          {props.userReducer.user.first_name?.charAt(0).toUpperCase()}
-          {props.userReducer.user.last_name?.charAt(0).toUpperCase()}
-        </h1>
-        <div className='user-info'>
-          <div className='info-descriptions'>
-            <h2>First Name:</h2>
-            <h2>Last Name:</h2>
-            <h2>Email:</h2>
-          </div>
-          <div className='info'>
-            <h2>{props.userReducer.user.first_name}</h2>
-            <h2>{props.userReducer.user.last_name}</h2>
-            <h2>{props.userReducer.user.email}</h2>
+        <div className='info-container'>
+          <h1 className='initials'>
+            {props.userReducer.user.first_name?.charAt(0).toUpperCase()}
+            {props.userReducer.user.last_name?.charAt(0).toUpperCase()}
+          </h1>
+          <div className='user-info'>
+            <div className='info-descriptions'>
+              <h2>First Name:</h2>
+              <h2>Last Name:</h2>
+              <h2>Email:</h2>
+            </div>
+            <div className='info'>
+              <h2>{props.userReducer.user.first_name}</h2>
+              <h2>{props.userReducer.user.last_name}</h2>
+              <h2>{props.userReducer.user.email}</h2>
+            </div>
           </div>
         </div>
         <section className='practice-video-section'>
@@ -132,10 +134,14 @@ function Profile(props) {
             </div>
             )}
           </Dropzone>
-          {videosMap}
+          <div className='practice-video-container'>
+            {videosMap}
+          </div>
         </section>
         <h1>History</h1>
-        {historyMap}
+        <div className='history-container'>
+          {historyMap}
+        </div>
       </section>
     </div>
   );
@@ -145,4 +151,4 @@ function mapStateToProps(state) {
   return state;
 }
 
-export default connect(mapStateToProps, {addVideo})(Profile);
+export default connect(mapStateToProps, {addVideo, deleteVideo})(Profile);

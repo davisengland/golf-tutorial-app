@@ -9,3 +9,45 @@
     border-radius: 5px;
     margin-bottom: 10px;
 }
+
+@media (min-width: 450px) {
+    .gallery-body {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .gallery-videos {
+        width: 300px;
+        margin: 10px;
+    }
+}
+
+@media (min-width: 750px) {
+    .gallery-body {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .gallery-videos {
+        width: 350px;
+        margin: 10px;
+    }
+}
+
+@media (min-width: 1000px) {
+    .gallery-body {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .gallery-videos {
+        width: 400px;
+        margin: 10px;
+    }
+}

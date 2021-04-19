@@ -66,6 +66,7 @@ function Landing(props) {
               onChange={(e) => setEmail(e.target.value)}
             />
             <input
+              type='password'
               className='inputs'
               value={password}
               placeholder="Password"
