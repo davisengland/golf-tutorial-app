@@ -6,21 +6,21 @@
     align-items: center;
 }
 
+.info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.edit-info {
+    margin-top: 20px;
+}
+
 .history-videos {
     width: 90vw;
     height: 30vh;
     border-radius: 5px;
     margin-bottom: 10px;
-}
-
-.x {
-    margin-right: 10px;
-}
-
-.x-video {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
 }
 
 .initials {
@@ -63,14 +63,6 @@
     align-items: center;
 }
 
-.practice-videos {
-    width: 90vw;
-    margin: 20px 0px;
-    position: relative;
-    z-index: 1;
-    border-radius: 5px;
-}
-
 @media (min-width: 450px) {
     .history-container {
         display: flex;
@@ -81,17 +73,6 @@
     .history-videos {
         width: 300px;
         margin: 10px;
-    }
-
-    .practice-video-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        margin-top: 20px;
-    }
-
-    .practice-videos {
-        width: 300px;
     }
 }
 
@@ -107,16 +88,15 @@
         margin: 10px;
     }
 
-    .practice-video-container {
+    .info-container {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        margin-top: 20px;
+        flex-direction: row;
+        justify-content: space-between;
     }
 
-    .practice-videos {
-        width: 350px;
-        margin: 10px;
+    .initials {
+        margin-right: 100px;
+        margin-top: 50px;
     }
 }
 
@@ -132,23 +112,14 @@
         margin: 10px;
     }
 
-    .practice-video-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        margin-top: 20px;
-    }
-
-    .practice-videos {
-        width: 400px;
-    }
-
     .info-container {
         display: flex;
+        flex-direction: row;
         justify-content: space-between;
     }
 
     .initials {
         margin-right: 100px;
+        margin-top: 50px;
     }
 }

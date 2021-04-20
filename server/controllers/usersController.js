@@ -65,28 +65,30 @@ module.exports = {
   },
 
   updateUser: async (req, res) => {
-    const { newEmail, newPassword, newFirst_name, newLast_name } = req.body;
-    let hash = "";
-    const db = req.app.get("db");
+    if(req.session.user) {
+      let { new_email, new_first_name, new_last_name } = req.body;
+      const db = req.app.get("db");
 
-    const isAuth = bcrypt.compareSync(newPassword, req.session.user.hash);
-    if (!isAuth) {
-      const salt = bcrypt.genSaltSync(10);
-      hash = bcrypt.hashSync(newPassword, salt);
-    } else {
-      hash = req.session.user.hash;
+      if(new_email.length < 1) {
+        new_email = req.session.user.email
+      }
+      if(new_first_name.length < 1) {
+        new_first_name = req.session.user.first_name
+      }
+      if(new_last_name.length < 1) {
+        new_last_name = req.session.user.last_name
+      }
+  
+      const result = await db.users.update_user(
+        new_email,
+        new_first_name,
+        new_last_name,
+        req.session.user.user_id
+      );
+      const newUser = result[0];
+  
+      req.session.user = newUser;
+      res.status(200).send(req.session.user);
     }
-
-    const result = db.users.update_user(
-      newEmail,
-      hash,
-      newFirst_name,
-      newLast_name,
-      req.session.user.user_id
-    );
-    const newUser = result[0];
-
-    req.session.user = newUser;
-    res.status(200).send(req.session.user);
   },
 };

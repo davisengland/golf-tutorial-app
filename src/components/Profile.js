@@ -7,12 +7,14 @@ import { ClockLoader } from 'react-spinners'
 import { v4 as randomString } from 'uuid'
 import { addVideo } from '../redux/reducers/videosReducer'
 import PracticeVideo from './PracticeVideo'
+import Update from './Update'
 import './Profile.css'
 import axios from "axios";
 
 function Profile(props) {
   const [isUploading, setIsUploading] = useState(false)
   const [url, setUrl] = useState('http://via.placeholder.com/450x450')
+  const [isUpdating, setIsUpdating] = useState(false)
 
   navigator.webkitPersistentStorage.YTConfig = { host: 'https://www.youtube.com' }
 
@@ -96,11 +98,11 @@ function Profile(props) {
             <div className='info'>
               <h2>{props.userReducer.user.first_name}</h2>
               <h2>{props.userReducer.user.last_name}</h2>
-              <h2>{props.userReducer.user.email}</h2>
+              <h2 className='email'>{props.userReducer.user.email}</h2>
             </div>
           </div>
         </div>
-        <button>Update User Info</button>
+        {isUpdating ? <Update isUpdating={isUpdating} setIsUpdating={setIsUpdating}/> : <button className='edit-info' onClick={() => setIsUpdating(true)}>Edit Info</button>}
         <section className='practice-video-section'>
           <h1>Upload Practice Video</h1>
           <Dropzone

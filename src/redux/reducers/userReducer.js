@@ -1,5 +1,3 @@
-import { Update } from "massive";
-
 const initialState = {
   user: {},
 };
@@ -38,7 +36,7 @@ export function logout() {
   };
 }
 
-export function update(payload) {
+export function updateUser(payload) {
   return {
     type: UPDATE_INFO,
     payload: payload

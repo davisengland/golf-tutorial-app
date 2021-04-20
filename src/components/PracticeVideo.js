@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import { deleteVideo } from '../redux/reducers/videosReducer'
+import './PracticeVideo.css'
 
 function PracticeVideo(props) {
   const videosMap = props.videosReducer.practiceVideos.map((elem) => {

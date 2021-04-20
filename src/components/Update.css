@@ -1,0 +1,12 @@
+.update-fields {
+    display: flex;
+    flex-direction: column;
+}
+
+.update-inputs {
+    height: 40px;
+    width: 130px;
+    margin: 5px;
+    padding-left: 5px;
+}
+
