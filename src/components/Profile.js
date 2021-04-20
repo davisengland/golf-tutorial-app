@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import { connect } from "react-redux";
 import YouTube from "react-youtube";
 import Dropzone from 'react-dropzone'
 import { ClockLoader } from 'react-spinners'
 import { v4 as randomString } from 'uuid'
-import { addVideo, deleteVideo } from '../redux/reducers/videosReducer'
+import { addVideo } from '../redux/reducers/videosReducer'
+import PracticeVideo from './PracticeVideo'
 import './Profile.css'
 import axios from "axios";
 
@@ -39,8 +40,8 @@ function Profile(props) {
         'file-type': file.type,
         'folder-name': folderName
       }
-    }).then( (response) => {
-      const { signedRequest, url } = response.data
+    }).then(res => {
+      const { signedRequest, url } = res.data
       console.log(signedRequest, 'signed request')
       uploadFile(file, signedRequest, url)
     }).catch( err => {
@@ -77,15 +78,6 @@ function Profile(props) {
       })
   }
 
-  const videosMap = props.videosReducer.practiceVideos.map((elem) => {
-    return (
-      <div key={elem.url} className='x-video'>
-        {/* <button className='x' onClick={() => props.deleteVideo(elem.url)}>X</button> */}
-        <video controls className='practice-videos'><source type='video/mp4' src={elem.url}/></video>
-      </div>
-    );
-  });
-
   return (
     <div className='profile-page'>
       <Header />
@@ -108,6 +100,7 @@ function Profile(props) {
             </div>
           </div>
         </div>
+        <button>Update User Info</button>
         <section className='practice-video-section'>
           <h1>Upload Practice Video</h1>
           <Dropzone
@@ -134,9 +127,7 @@ function Profile(props) {
             </div>
             )}
           </Dropzone>
-          <div className='practice-video-container'>
-            {videosMap}
-          </div>
+          <PracticeVideo/>
         </section>
         <h1>History</h1>
         <div className='history-container'>
@@ -151,4 +142,4 @@ function mapStateToProps(state) {
   return state;
 }
 
-export default connect(mapStateToProps, {addVideo, deleteVideo})(Profile);
+export default connect(mapStateToProps, {addVideo})(Profile);

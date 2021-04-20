@@ -1,3 +1,5 @@
+import { Update } from "massive";
+
 const initialState = {
   user: {},
 };
@@ -6,6 +8,7 @@ const SIGNUP = "SIGNUP";
 const LOGIN = "LOGIN";
 const GET_USER = "GET_USER";
 const LOGOUT = "LOGOUT";
+const UPDATE_INFO = "UPDATE_INFO";
 
 export function signup(payload) {
   return {
@@ -35,6 +38,13 @@ export function logout() {
   };
 }
 
+export function update(payload) {
+  return {
+    type: UPDATE_INFO,
+    payload: payload
+  }
+}
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SIGNUP:
@@ -53,6 +63,11 @@ export default function reducer(state = initialState, action) {
       };
     case LOGOUT:
       return initialState;
+    case UPDATE_INFO:
+      return {
+        ...state,
+        user: action.payload
+      }
     default:
       return state;
   }

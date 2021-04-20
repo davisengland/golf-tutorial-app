@@ -43,7 +43,6 @@ app.get('/sign-s3', (req, res) => {
     }
 
     const s3 = new aws.S3()
-    // console.log(s3)
     const fileName = req.query['file-name']
     const fileType = req.query['file-type']
     const folderName = req.query['folder-name']
@@ -67,32 +66,29 @@ app.get('/sign-s3', (req, res) => {
         return res.send(returnData)
     })
 })
-// app.get('/sign-s3', (req, res) => {
-//     if(req.session.user) {
-//         aws.config = {
-//             region: 'us-west-1',
-//             accessKeyId: AWS_ACCESS_KEY_ID,
-//             secretAccessKey: AWS_SECRET_ACCESS_KEY
-//         }
-        
-//         const folderName = req.session.user.user_id
-//         const s3Params = {
-//             Bucket: S3_BUCKET,
-//             Key:`${folderName}`
-//         }
-    
-//         s3.getObject('getObjects', s3Params, (err, data) => {
-//             if(err) {
-//                 console.log(err)
-//                 return res.end()
-//             }
-//             const returnData = {
-//                 data: data
-//             }
-//             return res.send(returnData)
-//         })
-//     }
-// })
+app.delete('/sign-s3', (req, res) => {
+    aws.config = {
+        region: 'us-west-1',
+        accessKeyId: AWS_ACCESS_KEY_ID,
+        secretAccessKey: AWS_SECRET_ACCESS_KEY
+    }
+
+    const s3 = new aws.S3()
+    const fileName = req.query['file-name']
+    const folderName = req.query['folder-name']
+    const s3Params = {
+        Bucket: S3_BUCKET,
+        Key: `${folderName}/${fileName}`
+    }
+
+    s3.deleteObject(s3Params, (err, data) => {
+        if(err) {
+            console.log(err, err.stack)
+        } else {
+            console.log(data)
+        }
+    })
+})
 
 massive({
     connectionString: CONNECTION_STRING,
