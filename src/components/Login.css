@@ -12,17 +12,21 @@
     width: 100vw;
 }
 
-.button {
+.button-login {
     margin-top: 20px;
     margin-bottom: 80px;
     width: 120px;
-    height: 50px;
+    /* height: 200px; */
     color: white;
     background-color: rgba(58,71,80,255);
     font-family: sans-serif;
     font-weight: bold;
     font-size: 20px;
     border-radius: 10px;
+}
+
+.button-login:hover {
+    box-shadow: 0px 0px 20px lightgray;
 }
 
 .login-boxes {

@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: rgba(52,73,93,255)
 }
 
 .info-container {
@@ -13,7 +14,27 @@
 }
 
 .edit-info {
-    margin-top: 20px;
+    margin: 20px 0px;
+    width: 100px;
+    height: 40px;
+    color: white;
+    background-color: rgba(52,73,93,255);
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 10px;
+}
+
+.edit-info:hover {
+    box-shadow: 0px 0px 20px lightgray;
+}
+
+.section-title {
+    font-size: 30px;
+}
+
+.upload-title {
+    margin-bottom: 0px;
 }
 
 .history-videos {
@@ -61,6 +82,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.dropzone:hover {
+    cursor: pointer;
 }
 
 @media (min-width: 450px) {

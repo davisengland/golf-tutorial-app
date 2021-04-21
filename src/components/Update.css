@@ -1,6 +1,7 @@
 .update-fields {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .update-inputs {
@@ -10,3 +11,18 @@
     padding-left: 5px;
 }
 
+.update-button {
+    margin: 5px 0px;
+    width: 100px;
+    height: 40px;
+    color: white;
+    background-color: rgba(52,73,93,255);
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 10px;
+}
+
+.update-button:hover {
+    box-shadow: 0px 0px 20px lightgray;
+}

@@ -39,7 +39,7 @@ function Update(props) {
             className='update-inputs' 
             placeholder='New Email'
             onChange={(e) => setNewEmail(e.target.value)}/>
-        <button onClick={updateUser}>Update</button>
+        <button className='update-button' onClick={updateUser}>Update</button>
     </div>
   );
 }

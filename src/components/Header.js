@@ -45,13 +45,24 @@ function Header(props) {
           </div>
         </div>
       </section>
+      <section className='desktop-header'>
+        <img src={logo11} className='header-logo' alt='logo11'/>
+        <div className='horizontal-menu'>
+          <Link to="/" className='desktop-links'><h2>Gallery</h2></Link>
+          <h2 onClick={logoutUser} className='desktop-links logout'>Logout</h2>
+          <Link to="/profile" className='desktop-links'>
+            <h2 className='initials-link'>
+              {props.userReducer.user.first_name?.charAt(0).toUpperCase()}
+              {props.userReducer.user.last_name?.charAt(0).toUpperCase()}
+            </h2>
+          </Link>
+        </div>
+      </section>
       <div className={menu === 'none' ? 'none' : menu === 'open' ? 'open' : 'closed'}>
         <Link to="/" className='gallery-link links'><h2>Gallery</h2></Link>
         <Link to="/profile" className='profile-link links'>
           <h2>
             Profile
-            {/* {props.userReducer.user.first_name?.charAt(0).toUpperCase()}
-            {props.userReducer.user.last_name?.charAt(0).toUpperCase()} */}
           </h2>
         </Link>
         <h2 onClick={logoutUser} className='logout-link links'>Logout</h2>

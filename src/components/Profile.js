@@ -104,34 +104,36 @@ function Profile(props) {
         </div>
         {isUpdating ? <Update isUpdating={isUpdating} setIsUpdating={setIsUpdating}/> : <button className='edit-info' onClick={() => setIsUpdating(true)}>Edit Info</button>}
         <section className='practice-video-section'>
-          <h1>Upload Practice Video</h1>
-          <Dropzone
-            onDropAccepted={getSignedRequest}
-            accept="video/*"
-            multiple={false}>
-            {({getRootProps, getInputProps}) => (
-            <div 
-                style = {{
-                width: 160,
-                height: 80,
-                borderWidth: 5,
-                marginTop: 25,
-                borderColor: 'gray',
-                borderStyle: 'dashed',
-                borderRadius: 5,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 17,}}
-                {...getRootProps()}>
-                <input {...getInputProps()} />
-                {isUploading ? <ClockLoader /> : <p>Drop files here, or click to select files</p>}
-            </div>
-            )}
-          </Dropzone>
+          <h1 className='section-title upload-title'>Upload Practice Video</h1>
+          <div className='dropzone'>
+            <Dropzone
+              onDropAccepted={getSignedRequest}
+              accept="video/*"
+              multiple={false}>
+              {({getRootProps, getInputProps}) => (
+              <div 
+                  style = {{
+                  width: 160,
+                  height: 80,
+                  borderWidth: 5,
+                  marginTop: 25,
+                  borderColor: 'gray',
+                  borderStyle: 'dashed',
+                  borderRadius: 5,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: 17,}}
+                  {...getRootProps()}>
+                  <input {...getInputProps()} />
+                  {isUploading ? <ClockLoader /> : <p>Drop files here, or click to select files</p>}
+              </div>
+              )}
+            </Dropzone>
+          </div>
           <PracticeVideo/>
         </section>
-        <h1>History</h1>
+        <h1 className='section-title'>History</h1>
         <div className='history-container'>
           {historyMap}
         </div>

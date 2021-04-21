@@ -52,7 +52,7 @@ function Login(props) {
           placeholder="Password"
         />
       </section>
-      <button onClick={loginUser} className='button'>Login</button>
+      <button onClick={loginUser} className='button-login'>Login</button>
     </div>
   );
 }

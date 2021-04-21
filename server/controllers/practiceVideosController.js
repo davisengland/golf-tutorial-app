@@ -20,7 +20,6 @@ module.exports = {
 
   deleteVideo: async (req, res) => {
       if(req.session.user) {
-        console.log(req.body, 'req.body')
         const { url } = req.query
         const db = req.app.get('db')
         const result = await db.videos.delete_video(url, req.session.user.user_id)
