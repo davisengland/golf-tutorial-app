@@ -30,6 +30,14 @@ function Landing(props) {
     setPassword("");
     setFirstName("");
     setLastName("");
+
+    const emailData = {
+      email,
+      first_name,
+      last_name
+    }
+
+    axios.post('/email', emailData)
   };
 
   return (

@@ -4,11 +4,13 @@ const express = require('express')
 const app = express()
 const massive = require('massive')
 const session = require('express-session')
+const { sendEmail } = require('./mail')
 const usersCtrl = require('./controllers/usersController')
 const tutorialsCtrl = require('./controllers/tutorialsController')
 const historyCtrl = require('./controllers/historyController')
 const videosCtrl = require('./controllers/practiceVideosController')
 const { default: axios } = require('axios')
+const path = require('path')
 
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET, S3_BUCKET, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } = process.env
 
@@ -35,6 +37,10 @@ app.post('/history', historyCtrl.addToHistory)
 app.get('/videos', videosCtrl.getVideos)
 app.post('/videos', videosCtrl.addVideo)
 app.delete('/videos', videosCtrl.deleteVideo)
+app.post('/email', (req, res) => {
+    const { email, first_name, last_name } = req.body
+    sendEmail(email, first_name, last_name)
+})
 app.get('/sign-s3', (req, res) => {
     aws.config = {
         region: 'us-west-1',
@@ -85,9 +91,13 @@ app.delete('/sign-s3', (req, res) => {
         if(err) {
             console.log(err, err.stack)
         } else {
-            console.log(data)
+            console.log(data, 'data')
         }
     })
+})
+app.use(express.static(__dirname + '/../build'))
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../build/index.html'))
 })
 
 massive({
